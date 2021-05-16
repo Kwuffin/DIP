@@ -20,4 +20,4 @@ total_count = df.to_numpy().sum()
 for col in df:
     df[col] = df[col].apply(lambda x: x/total_count)
 
-df.to_csv("out.csv")
+df.to_csv("OUT.csv")
