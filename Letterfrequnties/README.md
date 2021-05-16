@@ -11,3 +11,7 @@
 3. Change the output file name to `"EN.csv"` or `"NL.csv"`, depending on which language you're trying to train on.
 4. Run `type input_en.txt | python mapper.py | sort | python reducer.py | python matrix_create.py` to generate a .csv-file
 5. Do this for both Dutch and English.
+
+### Test:
+Run `type input.txt | python mapper.py | sort | python reducer.py | python lang_counter.py` and it should give the total
+amount of English and Dutch sentences.
