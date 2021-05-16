@@ -8,7 +8,6 @@ df_nl = pd.read_csv("NL.csv", index_col=0)
 df_en = pd.read_csv("EN.csv", index_col=0)
 
 for line in sys.stdin:
-    print("line:", line)
     df = pd.DataFrame(np.zeros((28, 28)), columns=all_letters, index=all_letters)
     line.strip()
 
