@@ -4,6 +4,7 @@ import sys
 
 all_letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "#", "%"]
 
+# Pre-trained matrices
 df_nl = pd.read_csv("NL.csv", index_col=0)
 df_en = pd.read_csv("EN.csv", index_col=0)
 
@@ -15,10 +16,13 @@ for line in sys.stdin:
     count = float(count.replace("\n", ""))
 
     l1, l2 = word.split("-")
+
+    # Set value of specific point in DataFrame
     df.at[l1, l2] = count
 
     total_count = df.to_numpy().sum()
 
+    # Divide by total amount of combinations to get a percentage
     for col in df:
         df[col] = df[col].apply(lambda x: x/total_count)
 
@@ -29,6 +33,7 @@ for line in sys.stdin:
     df_nl_diff = pd.DataFrame(np.zeros((28, 28)), columns=all_letters, index=all_letters)
     df_en_diff = pd.DataFrame(np.zeros((28, 28)), columns=all_letters, index=all_letters)
 
+    # Calculate differences between pre-trained matrices and input matrix.
     for col in range(len(df_nl)):
         for i in range(len(df_nl.iloc[0])):
             nl_diff_score += (int(df.iat[i, col]) - int(df_nl.iat[i, col]))
@@ -41,14 +46,11 @@ for line in sys.stdin:
     en_diff_score = abs(en_diff_score)
 
     if nl_diff_score < en_diff_score:
-        # sys.stdout.write("en\t%s" % (1))
         print("en\t1")
 
     elif en_diff_score < nl_diff_score:
-        # sys.stdout.write("nl\t%s" % (1))
         print("nl\t1")
 
     else:
-        # sys.stdout.write("en\t%s" % (1))
         print("en\t1")
 
